@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>resources/cute-tiger-studio_23-2150844579.jpg</file>
+        <file>resources/group-animals-with-zoo-sign_1308-43734.jpg</file>
+        <file>resources/picturetiger2.jpg</file>
+        <file>resources/hello.jpg</file>
+    </qresource>
+</RCC>

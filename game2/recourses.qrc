@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>resources/images/depositphotos_13270628-stock-illustration-3d-cartoon-bird.jpg</file>
+        <file>resources/images/depositphotos_13270993-stock-illustration-red-bear.jpg</file>
+        <file>resources/images/depositphotos_37483085-stock-photo-fun-koala.jpg</file>
+        <file>resources/images/depositphotos_71499821-stock-photo-fun-cartoon-dog.jpg</file>
+        <file>resources/images/depositphotos_136889860-stock-photo-funny-cartoon-character.jpg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>resources/image_part_001.png</file>
+        <file>resources/image_part_002.png</file>
+        <file>resources/image_part_003.png</file>
+        <file>resources/image_part_004.png</file>
+        <file>resources/image_part_005.png</file>
+        <file>resources/image_part_006.png</file>
+        <file>resources/image_part_007.png</file>
+        <file>resources/image_part_008.png</file>
+        <file>resources/image_part_009.png</file>
+        <file>resources/image_part_010.png</file>
+        <file>resources/image_part_011.png</file>
+        <file>resources/image_part_012.png</file>
+        <file>resources/image_part_013.png</file>
+        <file>resources/image_part_014.png</file>
+        <file>resources/image_part_015.png</file>
+        <file>resources/image_part_016.png</file>
+    </qresource>
+</RCC>

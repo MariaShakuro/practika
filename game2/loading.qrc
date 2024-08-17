@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/im">
+        <file>im/allanimals.jpg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>im/allanimals.jpg</file>
+        <file>im/depositphotos_6631424-stock-illustration-fun-cat.jpg</file>
+        <file>im/depositphotos_13270628-stock-illustration-3d-cartoon-bird.jpg</file>
+        <file>im/depositphotos_13270993-stock-illustration-red-bear.jpg</file>
+        <file>im/depositphotos_28808489-stock-photo-fun-giraffe-with-glasses.jpg</file>
+        <file>im/depositphotos_37483085-stock-photo-fun-koala.jpg</file>
+        <file>im/depositphotos_71499821-stock-photo-fun-cartoon-dog.jpg</file>
+        <file>im/depositphotos_102537306-stock-illustration-ant-and-bee-with-white.jpg</file>
+        <file>im/depositphotos_136889860-stock-photo-funny-cartoon-character.jpg</file>
+        <file>im/depositphotos_223511466-stock-illustration-funny-cartoon-friends.jpg</file>
+        <file>im/depositphotos_503220292-stock-photo-illustration-cute-cartoon-character-mask.jpg</file>
+    </qresource>
+</RCC>

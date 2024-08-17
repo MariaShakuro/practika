@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/3on3">
+        <file>3on3/1.png</file>
+        <file>3on3/2.png</file>
+        <file>3on3/3.png</file>
+        <file>3on3/4.png</file>
+        <file>3on3/5.png</file>
+        <file>3on3/6.png</file>
+        <file>3on3/7.png</file>
+        <file>3on3/8.png</file>
+        <file>3on3/9.png</file>
+    </qresource>
+</RCC>
