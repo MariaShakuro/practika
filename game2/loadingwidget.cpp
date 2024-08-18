@@ -9,9 +9,6 @@
 LoadingWidget::LoadingWidget(QWidget *parent)
     : QWidget{parent}
 {
-
-
-
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0,0,0,0);
 
@@ -55,11 +52,6 @@ void LoadingWidget::updateProgress() {
     int currentValue = progressBar->value();
     if (currentValue < 100) {
         progressBar->setValue(currentValue + 1);
-    } else {
-        //this->hide();
-       // QMainWindow w;
-        //    w.show();
-
     }
 }
 void LoadingWidget::setProgressBarSize(int width, int height)

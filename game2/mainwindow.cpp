@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //Создаем меню
     ui->tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->tabWidget, &MainWindow::customContextMenuRequested, [&](const QPoint& pos) {
         static QMenu* menu = nullptr;
@@ -31,21 +32,31 @@ MainWindow::MainWindow(QWidget *parent)
         menu->popup( mapToGlobal(pos) );
     });
 
-  //  ui->progressBar->setValue(0);
 
-   // ui->widget->show();
+
     timer=new QTimer(ui->widget);
     timer->start(20);
-   // connect(timer,&QTimer::timeout,this,&MainWindow::onloadout);
 
 
+   //Работа с QFrame
     ui->tabWidget->tabBar()->hide();
    ui->tabWidget->setCurrentIndex(0);
     setInterfaceStyle();
-
     this->current_picture = "";
     this->difficulte = "";
+    //Создание таймера и места для него
+    timeEdit = new QTimeEdit();
+    timeEdit->setDisplayFormat("hh:mm:ss");
+    timeEdit->setTime(QTime(0, 0, 0));
+    timeEdit->setReadOnly(true);
+    connect(timer, &QTimer::timeout, this, [=]() {
+        QTime currentTime = timeEdit->time().addSecs(1);
+        timeEdit->setTime(currentTime);
+    });
+    ui->layout->addWidget(timeEdit);
+    this->timeEdit->hide();
 
+    this->isOnSecondClick = false;
 
 }
 
@@ -69,7 +80,7 @@ void MainWindow::setInterfaceStyle()
      ui->pushButton_4->setStyleSheet(StyleHelper::getStartButtonsStyle());
 }
 
-
+//Кнопка ВОЙТИ
 void MainWindow::on_pushButton_clicked()
 {
     ui->tabWidget->setCurrentIndex(1);
@@ -78,113 +89,54 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
-
+//Кнопка НАЧАТЬ
 void MainWindow::on_pushButton_4_clicked()
 {
-    if(!isOnSecondClick){
-
-    if(this->current_picture =="" or this->difficulte==""){
-        return;
-    }
-    else{
-
-        this->ui->tabWidget->setCurrentIndex(0);
-        this->field = new PuzzleWindow(this->current_picture);
-        this->ui->gridLayout_4->addWidget(this->field);
-        this->MakeField();
-     //РАТЬ,Т.К. ЗАЧЕМ 2 ТАЙМЕРА??????
-     //   QTimer*  timer = new QTimer(this);
-        // Создаем объект QTimeEdit и устанавливаем текущее время
-        timeEdit = new QTimeEdit();
-        timeEdit->setDisplayFormat("hh:mm:ss");
-        timeEdit->setTime(QTime(0, 0, 0)); // Устанавливаем начальное время
-        // Подключаем сигнал таймера к слоту, который будет обновлять время в QTimeEdit
-        connect(timer, &QTimer::timeout, this, [=]() {
-            QTime currentTime = timeEdit->time().addSecs(1);
-            timeEdit->setTime(currentTime);
-        });
-
-        // Устанавливаем интервал времени для таймера (1 секунда)
-        timer->setInterval(1000);
-        //Фича,чтобы исключить редактирование таймера вручную
-        timeEdit->setReadOnly(true);
-        // Запускаем таймер
-        timer->start();
-        this->timer = timer;
-        ui->layout->addWidget(timeEdit);
-         isOnSecondPage = false;
-    }
-    }else{
-    if(isOnSecondClick){
-        ui->layout->removeWidget(timeEdit);
-        delete timeEdit;
-        timeEdit=nullptr;
-        // Удаляем старый PuzzleWindow, если он существует
-        if (field) {
-            ui->gridLayout_4->removeWidget(field);
-            delete field;
-            field = nullptr;
-        }
-
         if(this->current_picture =="" or this->difficulte==""){
             return;
         }
         else{
+            if(this->field !=nullptr){
+                ui->gridLayout_4->removeWidget(this->field);//Удаление уже существующего пазла(картинки)
+            }
+            this->timeEdit->show();
+
             this->ui->tabWidget->setCurrentIndex(0);
             this->field = new PuzzleWindow(this->current_picture);
             this->ui->gridLayout_4->addWidget(this->field);
-            this->MakeField();
-            //НАДО УБРАТЬ,Т.К. ЗАЧЕМ 2 ТАЙМЕРА??????
-            //   QTimer*  timer = new QTimer(this);
-            // Создаем объект QTimeEdit и устанавливаем текущее время
-            timeEdit = new QTimeEdit();
-            timeEdit->setDisplayFormat("hh:mm:ss");
-           timeEdit->setTime(QTime(0, 0, 0)); // Устанавливаем начальное время
-            // Подключаем сигнал таймера к слоту, который будет обновлять время в QTimeEdit
-            connect(timer, &QTimer::timeout, this, [=]() {
-               QTime currentTime = timeEdit->time().addSecs(1);
-                timeEdit->setTime(currentTime);
-            });
 
-            // Устанавливаем интервал времени для таймера (1 секунда)
+            timeEdit->setTime(QTime(0, 0, 0));
+
             timer->setInterval(1000);
-            //Фича,чтобы исключить редактирование таймера вручную
-            timeEdit->setReadOnly(true);
-            // Запускаем таймер
             timer->start();
             this->timer = timer;
-            ui->layout->addWidget(timeEdit);
-            isOnSecondPage = false;}
-    }
+            isOnSecondPage = false;
+            this->isOnSecondClick = true;
+        }
 
-   }
-    isOnSecondClick!=isOnSecondClick;
 }
-
-
+//Кнопка НАЗАД
 void MainWindow::on_pushButton_12_clicked()
 {
+    if (this->isOnSecondClick)
+    {
+        if (!isOnSecondPage)
+        {
+            this->timer->stop();
+            QString result = timeEdit->time().toString("hh:mm:ss");
+            ui->listWidget->addItem(result);
+            ui->tabWidget->setCurrentIndex(1);
+        }
 
-
-
-    if (isOnSecondPage) {
-        // Retrieve the current time from QTimeEdit
-        QString result = timeEdit->time().toString("hh:mm:ss");
-
-        // Add the result to QListWidget
-        ui->listWidget->addItem(result);
-
-        ui->tabWidget->setCurrentIndex(0);
-        this->current_picture = "";
-        this->difficulte = "";}
-    else{
-        ui->tabWidget->setCurrentIndex(1);
-        this->current_picture = "";
-        this->difficulte = "";
+        else
+        {
+            ui->tabWidget->setCurrentIndex(0);
+            this->timer->start();
+        }
+        isOnSecondPage = !isOnSecondPage;
     }
-    // Toggle the state
-    isOnSecondPage = !isOnSecondPage;
 }
+
 void MainWindow::restartTimer()
 {
     timer->stop();
@@ -204,34 +156,13 @@ void MainWindow::MakePuzzle()
    return;
 }
 
-void MainWindow::MakeField()
-{
-
-    QVector<QPixmap> temp;
-    std::string path = "picures/" + this->current_picture + "/";
-    for (int i = 1; i <= 9; ++i){
-        temp.push_back(QPixmap(QString::fromStdString(path + std::to_string(i) + ".png")));
-    }
-    this->field->SetVectorOfPictures(temp);
-
-
-}
-
+//Кнопка ВЫЙТИ
 void MainWindow::on_pushButton_2_clicked()
 {
     qApp->quit();
 }
 
-/*void MainWindow::onloadout()
-{
-    if(ui->progressBar->value()==100)  {
-        ui->progressBar->hide();
-        ui->widget->hide();
-    }
-    ui->progressBar->setValue(ui->progressBar->value()+1);
-}
-*/
-
+//Обработка нажатия на квадратик
 void MainWindow::on_label_19_mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
@@ -239,7 +170,7 @@ void MainWindow::on_label_19_mousePressEvent(QMouseEvent *event)
         if(clickedLabel) {
             QPixmap image = clickedLabel->pixmap(Qt::ReturnByValue);
             if (!image.isNull()) {
-                QFrame* frame = new QFrame;
+               QFrame* frame = new QFrame;
                 QHBoxLayout* layout = new QHBoxLayout;
                 QLabel* imageLabel = new QLabel;
                 imageLabel->setPixmap(image);
@@ -250,43 +181,37 @@ void MainWindow::on_label_19_mousePressEvent(QMouseEvent *event)
         }
     }
 }
-
-
-
-
+//Кнопка уровня игры(Medium)
 void MainWindow::on_pushButton_7_clicked()
 {
     this->difficulte = "Medium";
 }
 
-
+//Кнопка первой картинки
 void MainWindow::on_pushButton_3_clicked()
 {
     this->current_picture = "bear";
 }
-
-
-
-
+//Кнопка второй картинки
 void MainWindow::on_pushButton_8_clicked()
 {
     this->current_picture = "bird";
 
 }
 
-
+//Кнопка третьей картинки
 void MainWindow::on_pushButton_9_clicked()
 {
     this->current_picture = "elephant";
 }
 
-
+//Кнопка четвертой картинки
 void MainWindow::on_pushButton_10_clicked()
 {
     this->current_picture = "camel";
 }
 
-
+//Кнопка пятой картинки
 void MainWindow::on_pushButton_11_clicked()
 {
     this->current_picture = "cat";

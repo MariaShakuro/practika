@@ -4,6 +4,8 @@
 #include <QDebug>
 #include<QAction>
 #include<QTimeEdit>
+#include<QFrame>
+#include<QLabel>
 #include "puzzlewindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,28 +24,15 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
     void on_pushButton_4_clicked();
-
     void on_pushButton_2_clicked();
-
-
-  //  void onloadout();
-
     void on_label_19_mousePressEvent(QMouseEvent *event);
     void on_pushButton_7_clicked();
-
-
     void on_pushButton_3_clicked();
     void on_pushButton_8_clicked();
-
     void on_pushButton_9_clicked();
-
     void on_pushButton_10_clicked();
-
     void on_pushButton_11_clicked();
-
-
     void on_pushButton_12_clicked();
 
 protected:
@@ -52,7 +41,6 @@ private:
     Ui::MainWindow *ui;
     QTimer*timer;
     void MakePuzzle();
-    void MakeField();
     void setInterfaceStyle();
     void restartTimer();
     void stopTimer();

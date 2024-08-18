@@ -12,6 +12,7 @@
 #include <QRandomGenerator>
 #include <vector>
 #include <string>
+#include <QWidget>
 
 class PuzzleWindow : public QMainWindow {
     Q_OBJECT
@@ -20,7 +21,6 @@ public:
     PuzzleWindow(std::string animal,QWidget *parent = nullptr);
     ~PuzzleWindow();
     void SetPicture(int i, QString file_path);
-    void SetVectorOfPictures(QVector<QPixmap>);
 private slots:
     void onTileClicked();
 private:
@@ -31,6 +31,7 @@ private:
 
     QVector<QPushButton*> tiles;
     QVector<QPixmap> field;
+
     int emptyTileIndex;
 };
 
